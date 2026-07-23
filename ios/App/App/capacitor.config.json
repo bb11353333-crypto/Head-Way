@@ -1,0 +1,6 @@
+{
+	"appId": "com.headway.app",
+	"appName": "Headway",
+	"webDir": "dist",
+	"packageClassList": []
+}

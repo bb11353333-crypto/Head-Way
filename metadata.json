@@ -1,0 +1,8 @@
+{
+  "name": "Headway TBI Tracker",
+  "description": "An anonymous reporting repository for traumatic brain injuries in sports to collect data for legislative change.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
