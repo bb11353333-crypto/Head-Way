@@ -105,7 +105,7 @@ export function ReportForm() {
         finalReasons[finalReasons.indexOf("Other")] = `Other: ${otherReasonNotReported}`;
       }
 
-      await addDoc(collection(db, "tbi_reports"), {
+      const reportData = {
         sport: sport === "Other" ? otherSport : sport,
         position,
         symptoms: finalSymptoms,
@@ -116,8 +116,24 @@ export function ReportForm() {
         sex,
         state,
         incidentDescription,
+        timestamp: new Date().toISOString(), // Local timestamp string for local storage
+      };
+
+      await addDoc(collection(db, "tbi_reports"), {
+        ...reportData,
         timestamp: serverTimestamp(),
       });
+      
+      // Save locally
+      try {
+        const existing = localStorage.getItem('headway_reports');
+        const logs = existing ? JSON.parse(existing) : [];
+        logs.push(reportData);
+        localStorage.setItem('headway_reports', JSON.stringify(logs));
+      } catch (e) {
+        console.error("Failed to save locally", e);
+      }
+
       setIsSuccess(true);
     } catch (error) {
       console.error("Error adding document: ", error);

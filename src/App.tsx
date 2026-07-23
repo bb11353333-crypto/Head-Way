@@ -9,11 +9,13 @@ import { Dashboard } from './components/Dashboard';
 import { Home as HomeView } from './components/Home';
 import { Science } from './components/Science';
 import { CTEImpact } from './components/CTEImpact';
-import { FileText, BarChart3, Info, Home, Microscope, AlertCircle, Activity } from 'lucide-react';
+import { MyLogs } from './components/MyLogs';
+import { Settings } from './components/Settings';
+import { FileText, BarChart3, Info, Home, Microscope, AlertCircle, Activity, Settings as SettingsIcon, History } from 'lucide-react';
 import { cn } from './lib/utils';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'science' | 'cte' | 'report' | 'dashboard'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'science' | 'cte' | 'report' | 'dashboard' | 'logs' | 'settings'>('home');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -99,6 +101,30 @@ export default function App() {
             <BarChart3 className="w-4 h-4 hidden sm:block" />
             <span>Data Explorer</span>
           </button>
+          <button
+            onClick={() => setActiveTab('logs')}
+            className={cn(
+              "flex items-center gap-2 pb-1 transition-all",
+              activeTab === 'logs' 
+                ? "text-[#841617] border-b-2 border-[#841617]" 
+                : "text-[#6C757D] hover:text-[#212529]"
+            )}
+          >
+            <History className="w-4 h-4 hidden sm:block" />
+            <span>My Logs</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('settings')}
+            className={cn(
+              "flex items-center gap-2 pb-1 transition-all",
+              activeTab === 'settings' 
+                ? "text-[#841617] border-b-2 border-[#841617]" 
+                : "text-[#6C757D] hover:text-[#212529]"
+            )}
+          >
+            <SettingsIcon className="w-4 h-4 hidden sm:block" />
+            <span>Settings</span>
+          </button>
         </nav>
       </header>
 
@@ -130,6 +156,10 @@ export default function App() {
               <ReportForm />
             </div>
           </div>
+        ) : activeTab === 'logs' ? (
+          <MyLogs />
+        ) : activeTab === 'settings' ? (
+          <Settings />
         ) : (
           <div className="max-w-4xl mx-auto w-full p-4 sm:p-6 mt-6">
             <div className="mb-8">
